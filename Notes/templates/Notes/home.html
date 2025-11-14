@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudyNote – Dashboard</title>
+
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: "Inter", sans-serif;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade {
+            animation: fadeInUp 0.5s ease-in-out forwards;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100">
+
+    <!-- NAVBAR -->
+    <nav class="bg-white shadow-md px-6 py-4 flex justify-between items-center">
+        <h1 class="text-2xl font-bold text-indigo-600">StudyNote</h1>
+        <div class="flex items-center space-x-6">
+            <a href="#" class="text-gray-600 hover:text-indigo-600 font-medium">Home</a>
+            <a href="#" class="text-gray-600 hover:text-indigo-600 font-medium">My Notes</a>
+            <a href="#" class="text-gray-600 hover:text-indigo-600 font-medium">Upload</a>
+            <a href="{% url 'logout' %}" class="text-red-500 font-semibold hover:underline">Logout</a>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="max-w-6xl mx-auto mt-12 px-6 fade">
+        <div class="bg-white shadow-xl rounded-xl p-10">
+            <h2 class="text-4xl font-bold text-gray-900">Welcome, {{ request.session.username }} to your Study Dashboard ✨</h2>
+            <p class="mt-4 text-gray-600 text-lg">
+                Organize your study notes, upload files, highlight important points — all in one clean place.
+            </p>
+
+            <button
+                class="mt-6 px-6 py-3 rounded-lg bg-indigo-600 text-white font-semibold shadow hover:bg-indigo-700 transition">
+                Create New Note
+            </button>
+        </div>
+    </section>
+
+    <!-- FEATURES SECTION -->
+    <section class="max-w-6xl mx-auto px-6 mt-12 grid grid-cols-1 md:grid-cols-3 gap-8 fade">
+
+        <!-- Card 1 -->
+        <div class="bg-white shadow-lg rounded-xl p-6 hover:shadow-2xl transition">
+            <h3 class="text-xl font-semibold text-gray-900">📘 Manage Notes</h3>
+            <p class="text-gray-600 mt-2">Create, edit, and organize all your study notes efficiently.</p>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="bg-white shadow-lg rounded-xl p-6 hover:shadow-2xl transition">
+            <h3 class="text-xl font-semibold text-gray-900">📤 Upload Documents</h3>
+            <p class="text-gray-600 mt-2">Upload PDFs, images, and study materials safely.</p>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="bg-white shadow-lg rounded-xl p-6 hover:shadow-2xl transition">
+            <h3 class="text-xl font-semibold text-gray-900">🔒 Secure Access</h3>
+            <p class="text-gray-600 mt-2">Your notes are protected using secure login authentication.</p>
+        </div>
+
+    </section>
+
+    <!-- NOTES PREVIEW SECTION -->
+    <section class="max-w-6xl mx-auto px-6 mt-16 fade">
+        <h2 class="text-2xl font-bold text-gray-900 mb-6">Recent Notes 📝</h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+            <div class="bg-white rounded-xl shadow-md p-6 hover:shadow-lg transition">
+                <h3 class="text-lg font-semibold text-gray-900">Biology - Chapter 5</h3>
+                <p class="text-gray-500 mt-2 text-sm">Last updated: 2 days ago</p>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-md p-6 hover:shadow-lg transition">
+                <h3 class="text-lg font-semibold text-gray-900">Python Loops Notes</h3>
+                <p class="text-gray-500 mt-2 text-sm">Last updated: 1 day ago</p>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-md p-6 hover:shadow-lg transition">
+                <h3 class="text-lg font-semibold text-gray-900">Math Formulas</h3>
+                <p class="text-gray-500 mt-2 text-sm">Last updated: 5 hours ago</p>
+            </div>
+
+        </div>
+    </section>
+
+    <footer class="bg-white text-center text-gray-600 py-6 mt-16 shadow-inner">
+        StudyNote © 2025 · All Rights Reserved
+    </footer>
+
+</body>
+
+</html>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page - StudyNote</title>
+
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Load Inter Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* Set default font for the page */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Animation 1: Main card fade-in and scale-up.
+        This gives that "solid" entrance.
+        */
+        @keyframes fadeInScaleUp {
+            from {
+                opacity: 0;
+                transform: scale(0.95) translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .animate-card-entrance {
+            animation: fadeInScaleUp 0.5s ease-out forwards;
+        }
+
+        /* Animation 2: Staggered fade-in for form fields.
+        Makes the form feel responsive and dynamic.
+        */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-field-entrance {
+            opacity: 0;
+            /* Start hidden */
+            animation: fadeInUp 0.5s ease-out forwards;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+
+    <!--
+    Sign-Up Card Container
+    - animate-card-entrance applies the load-in animation.
+    - shadow-xl and rounded-xl give it a "solid" feel.
+    -->
+    <div class="animate-card-entrance m-4 w-full max-w-md overflow-hidden rounded-xl bg-white p-8 shadow-xl md:p-10">
+
+        <!-- Header -->
+        <div class="text-center">
+            <h1 class="text-3xl font-bold text-gray-900">
+                Login to your account
+            </h1>
+            <p class="mt-2 text-sm text-gray-600">
+                Welcome to your new digital notebook.
+            </p>
+        </div>
+
+        <!-- Sign-Up Form -->
+        <form class="mt-8 space-y-5" method="post" action="{% url 'login_submit' %}">
+            {% csrf_token %}
+
+            <div class="animate-field-entrance" style="animation-delay: 0.2s;">
+                <label for="email" class="block text-sm font-medium text-gray-700">
+                    Username</label>
+                    {{form.username}}
+                <input id="username" name="username" type="username" autocomplete="username" required
+                    class="mt-1 block w-full appearance-none rounded-lg border border-gray-300 px-3 py-2.5 placeholder-gray-400 shadow-sm transition duration-200 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    placeholder="username">
+            </div>
+
+            <div class="animate-field-entrance" style="animation-delay: 0.3s;">
+                <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+                {{form.password}}
+                <input id="password" name="password" type="password" autocomplete="new-password" required
+                    class="mt-1 block w-full appearance-none rounded-lg border border-gray-300 px-3 py-2.5 placeholder-gray-400 shadow-sm transition duration-200 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    placeholder="Min. 8 characters">
+            </div>
+
+
+            <!--
+        Sign Up Button
+        - This has the main hover effect.
+        - `transition-all`: Smoothly animates changes.
+        - `hover:scale-105`: Grows slightly on hover.
+        - `hover:bg-indigo-700`: Darkens color on hover.
+        -->
+            <div class="animate-field-entrance" style="animation-delay: 0.5s;">
+                <button type="submit"
+                    class="flex w-full j3ustify-center rounded-lg bg-indigo-600 px-4 py-3 text-sm font-semibold text-white shadow-md transition-all duration-200 ease-in-out hover:scale-[1.03] hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                    login
+                </button>
+            </div>
+        </form>
+
+        <!-- Footer Link -->
+        <p class="mt-8 text-center text-sm text-gray-600 animate-field-entrance" style="animation-delay: 0.6s;">
+            Don't have account?
+            <a href="{% url 'signup' %}"
+                class="font-medium text-indigo-600 transition duration-150 hover:text-indigo-500 hover:underline">
+                Sign Up
+            </a>
+        </p>
+    </div>
+
+</body>
+
+</html>
