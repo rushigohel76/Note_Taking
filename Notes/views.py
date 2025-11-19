@@ -46,7 +46,7 @@ def check_login(request):
 
         username = request.POST.get('username')
         password = request.POST.get('password')
-        
+
         if not username or not password:
             return render(request,'Notes/login.html',{
                 'error':'Username and password are required'
@@ -77,3 +77,7 @@ def home(request):
 def logout(request):
     request.session.flush()
     return redirect('login')
+
+def note(request):
+    if not request.session.get('note'):
+        return redirect('note')
