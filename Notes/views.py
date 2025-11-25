@@ -79,5 +79,11 @@ def logout(request):
     return redirect('login')
 
 def note(request):
-    if not request.session.get('note'):
-        return redirect('note')
+    if not request.session.get('Notes/note.html'):
+        return redirect('Notes/note.html')
+
+def note_taking(request):
+    return render('note.html')
+
+def uploading(request):
+    return render('uploading.html')
