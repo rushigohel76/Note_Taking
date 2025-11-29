@@ -62,7 +62,9 @@ def check_login(request):
         if check_password(password, user.password):
             request.session['user_id'] = user.id
             request.session['username'] = user.username
-            return render(request,'Notes/home.html')
+            return render(request,'Notes/home.html',{
+                "success":'Login Successfully'
+            })
         else:
             return render(request,'Notes/login.html',{
                 'error':'Invalid username or password'
@@ -78,12 +80,17 @@ def logout(request):
     request.session.flush()
     return redirect('login')
 
-def note(request):
+def note_page(request):
     if not request.session.get('Notes/note.html'):
         return redirect('Notes/note.html')
 
 def note_taking(request):
-    return render('note.html')
+    if request.session.get():
+        title = request.POST.get('title')
+        content = request.POST.get('content')
+        
+
+        return render('note.html')
 
 def uploading(request):
     return render('uploading.html')
