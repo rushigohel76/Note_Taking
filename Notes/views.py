@@ -81,15 +81,12 @@ def logout(request):
     return redirect('login')
 
 def note_page(request):
-    if not request.session.get('login'):
-        return render(request,'Notes/notes_page.html')
+    if request.session.get('login'):
+        title = request.POST.get('title')
+        content = request.POST.get('content')
 
-# def note_taking(request):
-#     if request.session.get():
-#         title = request.POST.get('title')
-#         content = request.POST.get('content')
-#         return render('Notes/note_page.html')
+        return render(request,'Notes/note_page.html')
+    else:
+        return render(request,'home')
 
-# def uploading(request):
-#     return render('uploading.html')
 
