@@ -7,6 +7,7 @@
     <title>StudyNote – Dashboard</title>
 
     <!-- Tailwind -->
+    
     <script src="https://cdn.tailwindcss.com"></script>
 
     <!-- Google Font -->
@@ -43,7 +44,6 @@
         <div class="flex items-center space-x-6">
             <a href="#" class="text-gray-600 hover:text-indigo-600 font-medium">Home</a>
             <a href="#" class="text-gray-600 hover:text-indigo-600 font-medium">My Notes</a>
-            <a href="#" class="text-gray-600 hover:text-indigo-600 font-medium">Upload</a>
             <a href="{% url 'logout' %}" class="text-red-500 font-semibold hover:underline">Logout</a>
         </div>
     </nav>
@@ -57,9 +57,9 @@
             </p>
 
             <a href="{% url 'note_page' %}">
+                
 
                 <button
-                
                 class="mt-6 px-6 py-3 rounded-lg bg-indigo-600 text-white font-semibold shadow hover:bg-indigo-700 transition">
                 Create New Note
             </button>

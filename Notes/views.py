@@ -35,7 +35,6 @@ def submit_view(request):
         )
 
         return redirect('login')
-
     return redirect('signup')
 
 def login(request):
@@ -81,12 +80,14 @@ def logout(request):
     return redirect('login')
 
 def note_page(request):
-    if request.session.get('login'):
-        title = request.POST.get('title')
-        content = request.POST.get('content')
-
-        return render(request,'Notes/note_page.html')
+    if not request.session.get('user_id'):
+        return render(request,'Notes/home.html')
     else:
-        return render(request,'home')
+        return render(request,'Notes/notes_page.html')
 
 
+def stored_notes(request):
+    if request.session.get('user_id'):
+        return render('stored_note')
+    else:
+        return render('home')

@@ -14,5 +14,5 @@ urlpatterns = [
     path('logout/',views.logout,name='logout'),
 
     path('note_page/',views.note_page,name='note_page'),
-
+    path('stored_notes/', views.stored_notes, name='stored_notes')
 ]

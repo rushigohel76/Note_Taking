@@ -3,9 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Note</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        form{
+            padding-left: 80px;
+            border-style: solid;
+        }
+        input{
+            
+            border-width: 2px;
+            border-radius: 0vb;
+            border-color: rgb(123, 11, 235);
+        }
+    </style>
 </head>
 <body>
-    <form action="note_taking"></form>
+    <nav class="bg-white shadow-md px-6 py-4 flex justify-between items-center">
+        <h1 class="text-2xl font-bold text-indigo-600">Write Your Notes</h1>
+        <div class="flex items-center space-x-6">
+            <a href="{% url 'home' %}" class="text-gray-600 hover:text-indigo-600 font-medium">Home</a>
+            <a href="{% url 'stored_notes' %}" class="text-gray-600 hover:text-indigo-600 font-medium">My Notes</a>
+            <a href="{% url 'logout' %}" class="text-red-500 font-semibold hover:underline">Logout</a>
+        </div>
+    </nav>
+
+    <form action="{% url 'note_page' %}">
+        <br><br>
+        <h1>Title</h1> <br>
+        <input type="text" placeholder="Add Title">
+        <br><br>
+        <h1>Your Note</h1> <br>
+        <input type="text" placeholder="Write Your Note...">
+    </form>
+    </h1>
 </body>
 </html>
