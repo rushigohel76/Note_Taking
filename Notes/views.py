@@ -2,7 +2,7 @@
 Docstring for Note_Taking.Notes.views
 """
 from django.shortcuts import render,redirect
-from .models import Notes_user_details
+from .models import NotesUserDetails,StoredNote
 from django.contrib.auth.hashers import make_password,check_password
 
 def signup(request):
@@ -28,7 +28,7 @@ def submit_view(request):
                 'error':'Password do not match'
             })
         hashed_pw = make_password(password)
-        Notes_user_details.objects.create(
+        NotesUserDetails.objects.create(
             username = username,
             email = email,
             password = hashed_pw,
@@ -50,18 +50,15 @@ def check_login(request):
                 'error':'Username and password are required'
             })
         try:
-            user = Notes_user_details.objects.get(username=username)
-        except Notes_user_details.DoesNotExist:
+            user = NotesUserDetails.objects.get(username=username)
+        except NotesUserDetails.DoesNotExist:
             return render(request,'Notes/login.html', {
                 'error': 'Invalid username or password'
             })
         if check_password(password, user.password):
             request.session['user_id'] = user.id
             request.session['username'] = user.username
-            return render(
-                request,'Notes/home.html',{
-                "success":'Login Successfully'
-            })
+            return redirect('home')
         else:
             return render(
                 request,'Notes/login.html',{
@@ -73,7 +70,7 @@ def home(request):
     """serving the home page with session checking"""
     if not request.session.get('user_id'):
         return redirect('login')
-    return render(request,'home')
+    return render(request,'Notes/home.html')
 
 def logout(request):
     """logout function for """
@@ -83,13 +80,27 @@ def logout(request):
 def note_page(request):
     """serving note page after session checking"""
     if not request.session.get('user_id'):
-        return render(request,'Notes/home.html')
-    else:
-        return render(request,'Notes/notes_page.html')
+        return redirect('login')
+    return render(request,'Notes/notes_page.html')
 
 def stored_notes(request):
-    """it stored notes"""
-    if request.session.get('user_id'):
-        return render('stored_note')
-    else:
-        return render('home')
+    if not request.session.get('user_id'):
+        return redirect('login')
+
+    user = NotesUserDetails.objects.get(id=request.session['user_id'])
+    
+    if request.method == "POST":
+        title = request.POST.get('title')
+        content = request.POST.get('content')
+
+        if not title or not content:
+            return render(request,'Notes/notes_page.html',{
+                'error':'title and content are required'
+            })
+
+        StoredNote.objects.create(
+            user=user,
+            title=title,
+            content=content,
+        )
+        return redirect('stored_notes')
