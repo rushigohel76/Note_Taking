@@ -10,7 +10,7 @@ def signup(request):
     return render(request,'Notes/signup.html')
 
 def submit_view(request):
-    """submiting the username, email, password and confirm_password"""
+    """surmising the username, email, password and confirm_password"""
 
     if request.method == 'POST':
         username = request.POST.get('username')
@@ -104,3 +104,7 @@ def stored_notes(request):
             content=content,
         )
         return redirect('stored_notes')
+    notes = user.StoredNote.all()
+    return render(request,'Notes/stored_notes.html',{
+        'notes': notes
+    })
