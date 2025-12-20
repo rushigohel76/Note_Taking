@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>My Notes</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 min-h-screen p-6">
+
+    <h1 class="text-3xl font-bold text-indigo-600 mb-6">
+        My Notes
+    </h1>
+    <a href="{% url 'note_page' %}" class="inline-block mb-6 bg-indigo-600 text-white px-4 py-2 rounded">
+        + Create New Note
+    </a>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {% for note in notes %}
+        <div class="bg-white p-6 rounded-xl shadow">
+            <h2 class="text-xl font-semibold text-gray-800">
+                {{ note.title }}
+            </h2>
+            <p class="text-gray-600 mt-2">
+                {{ note.content }}
+            </p>
+            <p class="text-sm text-gray-400 mt-4">
+                {{ note.created_at }}
+            </p>
+            <a href="{% url 'delete_note' note.id %}"
+                onclick="return confirm('Are you sure you want to delete this note?')"
+                class="text-red-600 font-semibold hover:underline">
+                Delete
+            </a>
+        </div>
+
+        {% empty %}
+        <p>No notes created yet.</p>
+        {% endfor %}
+    </div>
+</body>
+
+</html>

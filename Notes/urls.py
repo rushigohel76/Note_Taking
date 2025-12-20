@@ -14,5 +14,10 @@ urlpatterns = [
     path('logout/',views.logout,name='logout'),
 
     path('note_page/',views.note_page,name='note_page'),
-    path('stored_notes/', views.stored_notes, name='stored_notes')
+    path('stored_notes/', views.stored_notes, name='stored_notes'),
+
+    path('save-note/',views.save_note,name='save_note'),
+    path('stored_notes/',views.stored_notes,name='stored_notes'),
+
+    path('delete_note/<int:note_id>/',views.delete_note,name='delete_note'),
 ]

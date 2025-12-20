@@ -7,7 +7,7 @@
     <title>StudyNote - HomePage</title>
 
     <!-- Tailwind -->
-    
+
     <script src="https://cdn.tailwindcss.com"></script>
 
     <!-- Google Font -->
@@ -42,7 +42,7 @@
     <nav class="bg-white shadow-md px-6 py-4 flex justify-between items-center">
         <h1 class="text-2xl font-bold text-indigo-600">StudyNote</h1>
         <div class="flex items-center space-x-6">
-            <a href="#" class="text-gray-600 hover:text-indigo-600 font-medium">My Notes</a>
+            <a href="{% url 'stored_notes' %}" class="text-gray-600 hover:text-indigo-600 font-medium">My Notes</a>
             <a href="{% url 'logout' %}" class="text-red-500 font-semibold hover:underline">Logout</a>
         </div>
     </nav>
@@ -50,19 +50,20 @@
     <!-- HERO SECTION -->
     <section class="max-w-6xl mx-auto mt-12 px-6 fade">
         <div class="bg-white shadow-xl rounded-xl p-10">
-            <h2 class="text-4xl font-bold text-gray-900">Welcome, {{ request.session.username }} to your Study Dashboard ✨</h2>
+            <h2 class="text-4xl font-bold text-gray-900">Welcome, {{ request.session.username }} to your Study Dashboard
+                ✨</h2>
             <p class="mt-4 text-gray-600 text-lg">
                 Organize your study notes, upload files, highlight important points — all in one clean place.
             </p>
 
             <a href="{% url 'note_page' %}">
-                
+
 
                 <button
-                class="mt-6 px-6 py-3 rounded-lg bg-indigo-600 text-white font-semibold shadow hover:bg-indigo-700 transition">
-                Create New Note
-            </button>
-        </a>
+                    class="mt-6 px-6 py-3 rounded-lg bg-indigo-600 text-white font-semibold shadow hover:bg-indigo-700 transition">
+                    Create New Note
+                </button>
+            </a>
         </div>
     </section>
 
@@ -91,24 +92,29 @@
 
     <!-- NOTES PREVIEW SECTION -->
     <section class="max-w-6xl mx-auto px-6 mt-16 fade">
-        <h2 class="text-2xl font-bold text-gray-900 mb-6">Recent Notes 📝</h2>
+        <h2 class="text-2xl font-bold text-gray-900 mb-6">
+            Recent Notes 📝
+        </h2>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
 
+            {% for note in recent_notes %}
             <div class="bg-white rounded-xl shadow-md p-6 hover:shadow-lg transition">
-                <h3 class="text-lg font-semibold text-gray-900">Biology - Chapter 5</h3>
-                <p class="text-gray-500 mt-2 text-sm">Last updated: 2 days ago</p>
+                <h3 class="text-lg font-semibold text-gray-900">
+                    {{ note.title }}
+                </h3>
+                <p class="text-gray-500 mt-2 text-sm">
+                    {{ note.created_at|date:"M d, Y H:i" }}
+                </p>
+                <p class="text-gray-600 mt-3 line-clamp-3">
+                    {{ note.content|truncatewords:20 }}
+                </p>
             </div>
-
-            <div class="bg-white rounded-xl shadow-md p-6 hover:shadow-lg transition">
-                <h3 class="text-lg font-semibold text-gray-900">Python Loops Notes</h3>
-                <p class="text-gray-500 mt-2 text-sm">Last updated: 1 day ago</p>
-            </div>
-
-            <div class="bg-white rounded-xl shadow-md p-6 hover:shadow-lg transition">
-                <h3 class="text-lg font-semibold text-gray-900">Math Formulas</h3>
-                <p class="text-gray-500 mt-2 text-sm">Last updated: 5 hours ago</p>
-            </div>
+            {% empty %}
+            <p class="text-gray-500">
+                No notes yet. Start by creating one!
+            </p>
+            {% endfor %}
 
         </div>
     </section>
